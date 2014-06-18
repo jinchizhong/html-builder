@@ -18,7 +18,7 @@ class HtmlBuilder
   end
   def self.html *args, &block
     attrs, text = HtmlBuilder.parse_arg *args
-    h = Html.new "html", attrs, text
+    h = HtmlBuilder.new "html", attrs, text
     h.instance_eval &block if block
     h.generate
   end
