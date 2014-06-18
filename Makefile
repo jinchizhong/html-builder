@@ -1,6 +1,6 @@
 all: build
 
-build:
+build: clean
 	gem build *.gemspec
 
 install: build
@@ -11,3 +11,6 @@ uninstall:
 
 clean:
 	rm -rf *.gem
+
+upload: build
+	gem push *.gem

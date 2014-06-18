@@ -1,6 +1,30 @@
 #!/usr/bin/ruby
 
 class HtmlBuilder
+  # HtmlBuilder
+  #
+  # Example:
+  # require 'html-builder'
+  # 
+  # puts HtmlBuilder.html {
+  #   head {
+  #     title "Hello HtmlBuilder"
+  #   }
+  #   body {
+  #     text "Hello ", a("HtmlBuilder", :href => "http://github.com/jinchizhong/html-builder"), "."
+  #   }
+  # }
+  # Got:
+  # <html>
+  #   <head>
+  #     <title>Hello HtmlBuilder</title>
+  #   </head>
+  #   <body>
+  #     Hello <a href="http://github.com/jinchizhong/html-builder">HtmlBuilder</a>.
+  #   </body>
+  # </html>
+  # Just so easy...
+
   def initialize name, attrs, text
     @name = name
     @attrs = attrs
