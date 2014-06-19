@@ -45,26 +45,31 @@ end
 
 class HtmlBuilder
   def self.html *args, &block
-    generate :html, *args, &block
+    self.generate {
+      html(*args, &block)
+    }
   end
-  def self.generate root_ele, *args, &block
+  def self.generate *args, &block
     x = self.new
-    x.build_tree root_ele, *args, &block
+    if block
+      x.yield_block nil, &block
+    else
+      template *args
+    end
     x.to_s
   end
   def initialize
     @root = nil
     @stack = []
   end
+  def template *args
+    # reimplement it if necessary
+  end
   def inspect
-    nil
+    self.class
   end
   def to_s *args
     @root.to_s *args
-  end
-  def build_tree root_name, *args, &block
-    @root = HtmlBuilderNode.new nil, root_name, *args
-    yield_block @root, &block
   end
   def yield_block e, &block
     return unless block
@@ -74,6 +79,7 @@ class HtmlBuilder
   end
   def add_child name, *args, &block
     e = HtmlBuilderNode.new @stack.last, name, *args
+    @root = e if not @root
     yield_block e, &block
   end
   def self.def_tag name
